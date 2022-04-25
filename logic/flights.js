@@ -15,3 +15,5 @@ function calculateNumberOfFlighs(passengers, capactiy) {
 return {calculateNumberOfFlighs};
 
 }
+
+module.exports = Flights();
