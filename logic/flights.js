@@ -40,7 +40,7 @@ function checkAircraftRevision(distanceLimit, distancesArray) {
   }
 }
 
-return {calculateNumberOfFlights, checkAircraftRevision};
+return {calculateNumberOfFlights};
 
 }
 
