@@ -11,8 +11,10 @@ function onCalculateNumberOfFlights() {
        document.getElementById('flights').innerHTML = "You will need " + flights +
           " flight(s) to carry " + passengers + " passengers";
     } catch (error) {
-        document.getElementById('flights').innerHTML = error; 
-    } 
+        document.getElementById('flights').innerHTML = error;
+    } finally {
+      console.log("You inserted " + passengers + " passengers and " + capacity + " as capacity");
+    }
 }
 
 function onCalculateTotalFinalPrice(object) {
@@ -20,33 +22,33 @@ function onCalculateTotalFinalPrice(object) {
         case 'regulareconomy':
             Util().checkInput(document.getElementById('regularPassengersEconomyFlightBasePrice').value);
             Util().checkInput(document.getElementById('regularPassengersEconomyFlight').value);
-            document.getElementById('regularPassengersEconomyFlightTotalPrice').innerHTML = 
+            document.getElementById('regularPassengersEconomyFlightTotalPrice').innerHTML =
                   Prices().calculateTotalFinalPrice(document.getElementById('regularPassengersEconomyFlight').value,
-                          'regular', 'economy', 
+                          'regular', 'economy',
                            document.getElementById('regularPassengersEconomyFlightBasePrice').value);
         break;
         case 'vipeconomy':
             Util().checkInput(document.getElementById('vipPassengersEconomyFlightBasePrice').value);
             Util().checkInput(document.getElementById('vipPassengersEconomyFlight').value);
-            document.getElementById('vipPassengersEconomyFlightTotalPrice').innerHTML = 
+            document.getElementById('vipPassengersEconomyFlightTotalPrice').innerHTML =
                   Prices().calculateTotalFinalPrice(document.getElementById('vipPassengersEconomyFlight').value,
-                          'vip', 'economy', 
+                          'vip', 'economy',
                           document.getElementById('vipPassengersEconomyFlightBasePrice').value);
         break;
         case 'regularbusiness':
             Util().checkInput(document.getElementById('regularPassengersBusinessFlightBasePrice').value);
             Util().checkInput(document.getElementById('regularPassengersBusinessFlight').value);
-            document.getElementById('regularPassengersBusinessFlightTotalPrice').innerHTML = 
+            document.getElementById('regularPassengersBusinessFlightTotalPrice').innerHTML =
                   Prices().calculateTotalFinalPrice(document.getElementById('regularPassengersBusinessFlight').value,
-                           'regular', 'business', 
+                           'regular', 'business',
                            document.getElementById('regularPassengersBusinessFlightBasePrice').value);
         break;
         case 'vipbusiness':
             Util().checkInput(document.getElementById('vipPassengersBusinessFlightBasePrice').value);
             Util().checkInput(document.getElementById('vipPassengersBusinessFlight').value);
-            document.getElementById('vipPassengersBusinessFlightTotalPrice').innerHTML = 
+            document.getElementById('vipPassengersBusinessFlightTotalPrice').innerHTML =
                   Prices().calculateTotalFinalPrice(document.getElementById('vipPassengersBusinessFlight').value,
-                          'vip', 'business', 
+                          'vip', 'business',
                            document.getElementById('vipPassengersBusinessFlightBasePrice').value);
         break;
     }
@@ -72,14 +74,14 @@ function onDistributePassengers() {
     let businessSeatsPerFlight = parseInt(document.getElementById("businessSeatsPerFlight").value);
     let economySeatsPerFlight = parseInt(document.getElementById("economySeatsPerFlight").value);
 
-    let distributedPassengers = Passengers().distributeAllSeatsToAllPassengers(vipPassengers, regularPassengers, 
+    let distributedPassengers = Passengers().distributeAllSeatsToAllPassengers(vipPassengers, regularPassengers,
                                            nrOfFlights, businessSeatsPerFlight, economySeatsPerFlight);
 
-    let totalDistributedPassengers = Util().calculateTotalDistributedPassengers(distributedPassengers);                                       
+    let totalDistributedPassengers = Util().calculateTotalDistributedPassengers(distributedPassengers);
 
-    document.getElementById("distributedPassengers").innerHTML = 
+    document.getElementById("distributedPassengers").innerHTML =
          "Total number of distributed passengers: " + totalDistributedPassengers + "<br>" +
-         "VIP passengers distributed to business seats: " + distributedPassengers.vipPassengersWithBusinessSeats + "<br>" + 
+         "VIP passengers distributed to business seats: " + distributedPassengers.vipPassengersWithBusinessSeats + "<br>" +
          "VIP passengers distributed to economy seats: " + distributedPassengers.vipPassengersWithEconomySeats + "<br>" +
          "Regular passengers distributed to business seats: " + distributedPassengers.regularPassengersWithBusinessSeats + "<br>" +
          "Regular passengers distributed to economy seats: " + distributedPassengers.regularPassengersWithEconomySeats + "<br>";
@@ -137,7 +139,7 @@ function onCalculateBonusPoints() {
     let businessBonus = parseInt(document.getElementById("businessBonus").value);
     let economyBonus = parseInt(document.getElementById("economyBonus").value);
 
-    calculatedBonusPoints = Util().calculateBonusPoints(businessDistancesArray, economyDistancesArray, 
+    calculatedBonusPoints = Util().calculateBonusPoints(businessDistancesArray, economyDistancesArray,
                                                               businessBonus, economyBonus);
 
     document.getElementById("calculatedBonusPoints").innerHTML = "Bonus points: " + calculatedBonusPoints;
@@ -154,11 +156,11 @@ function onCheckFlightCapacity() {
     let passengersFromFlight5 = parseInt(document.getElementById("passengersFromFlight5").value);
 
     let passengersArray = [passengersFromFlight1, passengersFromFlight2, passengersFromFlight3, passengersFromFlight4, passengersFromFlight5];
-    try { 
+    try {
         let passengersNumber = Passengers().checkFlightCapacity(flightCapacity, passengersArray);
         document.getElementById("checkedFlightCapacity").innerHTML = "Passengers number: " + passengersNumber;
     } catch (error) {
-        document.getElementById('checkedFlightCapacity').innerHTML = error; 
+        document.getElementById('checkedFlightCapacity').innerHTML = error;
     }
 
 }
@@ -173,11 +175,11 @@ function onCheckAircraftRevision() {
     let coveredDistance5 = parseInt(document.getElementById("coveredDistance5").value);
 
     let distancesArray = [coveredDistance1, coveredDistance2, coveredDistance3, coveredDistance4, coveredDistance5];
-    try { 
+    try {
         let answer = Flights().checkAircraftRevision(distanceLimit, distancesArray);
         document.getElementById("checkedAircraftRevision").innerHTML = answer;
     } catch (error) {
-        document.getElementById('checkedAircraftRevision').innerHTML = error; 
+        document.getElementById('checkedAircraftRevision').innerHTML = error;
     }
 
 }
